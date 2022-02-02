@@ -1,6 +1,7 @@
 .TopHeader {
   position: relative;
   z-index: 20000;
+  margin-bottom: 4rem;
 }
 
 .TopHeader .header-content {
