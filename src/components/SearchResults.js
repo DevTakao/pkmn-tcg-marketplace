@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchResults.css";
 import { ResultCard } from "./ResultCard";
 import axios from "axios";
@@ -12,6 +12,7 @@ export const SearchResults = ({
   pageIndex,
   setPageIndex,
 }) => {
+  const [endOfResults, setEndOfResults] = useState(false);
   const handleShowMore = async () => {
     console.log("Show more!");
     setPageIndex(pageIndex + 1);
@@ -31,6 +32,9 @@ export const SearchResults = ({
         `https://api.pokemontcg.io/v2/cards?q=name:${searchInput}*&orderBy=name&page=${pageIndex}&pageSize=12`
       );
       const results = response.data.data;
+      if (!!results) {
+        setEndOfResults(true);
+      }
       setSearchResults(searchResults.concat(results));
     } catch (err) {
       console.log(err);
@@ -45,7 +49,7 @@ export const SearchResults = ({
         ))}
       <div className="showmore-btn-container">
         <button className="showmore-btn" onClick={() => handleShowMore()}>
-          {"Show more"}
+          {endOfResults ? "No more items found." : "Show more"}
         </button>
       </div>
     </div>
