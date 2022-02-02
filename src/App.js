@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
 import { ViewCartButton } from "./components/ViewCartButton";
 
+export const WindowSizeContext = createContext({ width: 0, height: 0 });
+
 function App() {
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [filterTypeValue, setFilterTypeValue] = useState("");
@@ -16,44 +19,56 @@ function App() {
   const [endOfResults, setEndOfResults] = useState(false);
 
   useEffect(() => {
+    const handleSetWindowSize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener("resize", handleSetWindowSize);
+    return () => {
+      window.removeEventListener(handleSetWindowSize, null);
+    };
+  }, []);
+
+  useEffect(() => {
     console.log("Search results", searchResults);
   }, [searchResults]);
 
   return (
-    <div className="App">
-      <TopHeader />
-      <SearchBar
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        searchResults={searchResults}
-        setSearchResults={setSearchResults}
-        filterTypeValue={filterTypeValue}
-        filterRarityValue={filterRarityValue}
-        filterSetValue={filterSetValue}
-        setFilterTypeValue={setFilterTypeValue}
-        setFilterRarityValue={setFilterRarityValue}
-        setFilterSetValue={setFilterSetValue}
-        setFilteredResults={setFilteredResults}
-        pageIndex={pageIndex}
-        setPageIndex={setPageIndex}
-        endOfResults={endOfResults}
-        setEndOfResults={setEndOfResults}
-      />
-      <SearchResults
-        searchInput={searchInput}
-        searchResults={searchResults}
-        setSearchResults={setSearchResults}
-        filterTypeValue={filterTypeValue}
-        filterRarityValue={filterRarityValue}
-        filterSetValue={filterSetValue}
-        filteredResults={filteredResults}
-        pageIndex={pageIndex}
-        setPageIndex={setPageIndex}
-        endOfResults={endOfResults}
-        setEndOfResults={setEndOfResults}
-      />
-      <ViewCartButton />
-    </div>
+    <WindowSizeContext.Provider value={windowSize}>
+      <div className="App">
+        <TopHeader />
+        <SearchBar
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          filterTypeValue={filterTypeValue}
+          filterRarityValue={filterRarityValue}
+          filterSetValue={filterSetValue}
+          setFilterTypeValue={setFilterTypeValue}
+          setFilterRarityValue={setFilterRarityValue}
+          setFilterSetValue={setFilterSetValue}
+          setFilteredResults={setFilteredResults}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+          endOfResults={endOfResults}
+          setEndOfResults={setEndOfResults}
+        />
+        <SearchResults
+          searchInput={searchInput}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          filterTypeValue={filterTypeValue}
+          filterRarityValue={filterRarityValue}
+          filterSetValue={filterSetValue}
+          filteredResults={filteredResults}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+          endOfResults={endOfResults}
+          setEndOfResults={setEndOfResults}
+        />
+        <ViewCartButton />
+      </div>
+    </WindowSizeContext.Provider>
   );
 }
 

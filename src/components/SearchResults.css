@@ -1,5 +1,5 @@
 .SearchResults {
-  max-width: calc(100vw * 0.7);
+  max-width: calc(100vw * 0.75);
   margin: auto;
   padding: 1rem 0 10rem 0;
   display: flex;
