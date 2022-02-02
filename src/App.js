@@ -1,5 +1,6 @@
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
+import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <TopHeader />
       <SearchBar />
+      <SearchResults />
     </div>
   );
 }

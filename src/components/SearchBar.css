@@ -2,11 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 .SearchBar .search-form {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .SearchBar .search-input,

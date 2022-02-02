@@ -1,0 +1,7 @@
+.SearchResults {
+  padding: 1rem 20%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1.5rem;
+}

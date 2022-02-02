@@ -1,0 +1,73 @@
+.ResultCard {
+  padding: 3rem 0;
+  margin-top: 250px;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 1px 1px 5px 1px rgb(224, 224, 224);
+  position: relative;
+  min-width: 250px;
+}
+
+.ResultCard p {
+  margin: 0;
+}
+
+.ResultCard .card-img-container {
+  width: 75%;
+  max-width: 75%;
+  height: auto;
+  position: absolute;
+  bottom: 75%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.ResultCard .card-img-container .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ResultCard .card-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.ResultCard .card-rarity {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgb(0, 162, 211);
+}
+
+.ResultCard .card-sale-info {
+  margin-top: 1rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  color: #444;
+}
+
+.ResultCard .select-card-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bolder;
+  border: 0;
+  outline: 0;
+  padding: 1rem 3rem;
+  border-radius: 2rem;
+  background-color: rgb(255, 230, 0);
+  box-shadow: 0px 3px 6px -3px rgb(92, 92, 92);
+  position: absolute;
+  top: 100%;
+  transform: translateY(-50%);
+}
+.ResultCard .select-card-btn:hover {
+  filter: brightness(120%);
+}
