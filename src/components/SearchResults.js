@@ -49,13 +49,11 @@ export const SearchResults = ({
           <ResultCard key={uniqueId() + "_" + data.id} data={data} />
         ))}
       <div className="showmore-btn-container">
-        <button className="showmore-btn" onClick={() => handleShowMore()}>
-          {!filteredResults.length
-            ? "Start searching by entering a card name."
-            : endOfResults
-            ? "No more items found."
-            : "Show more"}
-        </button>
+        {!!filteredResults.length && (
+          <button className="showmore-btn" onClick={() => handleShowMore()}>
+            {endOfResults ? "No more items found." : "Show more"}
+          </button>
+        )}
       </div>
     </div>
   );
