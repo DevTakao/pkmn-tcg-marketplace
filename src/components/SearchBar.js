@@ -7,11 +7,14 @@ import { capFirstLetter } from "../utils/capFirstLetter";
 import axios from "axios";
 
 export const SearchBar = ({
+  searchInput,
+  setSearchInput,
   searchResults,
   setSearchResults,
   setFilteredResults,
+  pageIndex,
+  setPageIndex,
 }) => {
-  const [searchInput, setSearchInput] = useState("");
   const [filterTypeValue, setFilterTypeValue] = useState("");
   const [filterRarityValue, setFilterRarityValue] = useState("");
   const [filterSetValue, setFilterSetValue] = useState("");
@@ -29,6 +32,7 @@ export const SearchBar = ({
   };
 
   const handleSearch = async (searchInput) => {
+    setPageIndex(1);
     const results = await requestSearch(searchInput);
     // const results = _apiData.data;
     setSearchResults(results);
@@ -38,7 +42,7 @@ export const SearchBar = ({
     const filteredList = !!matcher
       ? list.filter(
           (x) =>
-            x.types &&
+            !!x.types &&
             (x.types.includes(matcher.toLowerCase()) ||
               x.types.includes(matcher.toUpperCase()) ||
               x.types.includes(capFirstLetter(matcher)))
@@ -50,7 +54,9 @@ export const SearchBar = ({
 
   const filterByRarity = (list, matcher) => {
     const filteredList = !!matcher
-      ? list.filter((x) => x.rarity.toLowerCase() === matcher.toLowerCase())
+      ? list.filter(
+          (x) => !!x.rarity && x.rarity.toLowerCase() === matcher.toLowerCase()
+        )
       : list;
     console.log("Filter by rarity ", matcher, "=", filteredList);
     return filteredList;
