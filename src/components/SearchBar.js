@@ -13,6 +13,7 @@ export const SearchBar = () => {
   return (
     <div className="SearchBar">
       <form
+        className="search-form"
         onSubmit={() => {
           console.log("Form submitted.");
         }}
@@ -23,8 +24,12 @@ export const SearchBar = () => {
           size={25}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Name..."
         />
-        <select className="filter-type-select" defaultValue={"_placeholder"}>
+        <select
+          className="filter-select filter-type-select"
+          defaultValue={"_placeholder"}
+        >
           <option className="option-placeholder" value="_placeholder" disabled>
             Type
           </option>
@@ -38,7 +43,10 @@ export const SearchBar = () => {
             </option>
           ))}
         </select>
-        <select className="filter-rarity-select" defaultValue={"_placeholder"}>
+        <select
+          className="filter-select filter-rarity-select"
+          defaultValue={"_placeholder"}
+        >
           <option className="option-placeholder" value="_placeholder" disabled>
             Rarity
           </option>
@@ -52,7 +60,10 @@ export const SearchBar = () => {
             </option>
           ))}
         </select>
-        <select className="filter-set-select" defaultValue={"_placeholder"}>
+        <select
+          className="filter-select filter-set-select"
+          defaultValue={"_placeholder"}
+        >
           <option className="option-placeholder" value="_placeholder" disabled>
             Set
           </option>
