@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./SearchBar.css";
-import { PKMN_TYPES } from "../constants/PKMN_TYPES";
-import { RARITIES } from "../constants/RARITIES";
-import { SET_LEGALITIES } from "../constants/SET_LEGALITIES";
+import { PKMN_TYPES } from "../_CONSTANTS/PKMN_TYPES";
+import { RARITIES } from "../_CONSTANTS/RARITIES";
+import { SET_LEGALITIES } from "../_CONSTANTS/SET_LEGALITIES";
 
 export const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
