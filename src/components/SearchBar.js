@@ -53,11 +53,9 @@ export const SearchBar = ({
   };
 
   const handleSearch = async () => {
-    // if (searchInput.trim()) {
     setEndOfResults(false);
     requestSearch();
     setPageIndex(1);
-    // }
   };
 
   //* ---LOGIC TO USE IF FILTER CANNOT BE DONE ON API---
