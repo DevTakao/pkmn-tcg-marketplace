@@ -37,11 +37,12 @@ export const SearchBar = ({
   };
 
   const handleSearch = async (searchInput) => {
+    // if (searchInput.trim()) {
     setEndOfResults(false);
     setPageIndex(1);
     const results = await requestSearch(searchInput);
-    // const results = _apiData.data;
     setSearchResults(results);
+    // }
   };
 
   const filterByType = (list, matcher) => {

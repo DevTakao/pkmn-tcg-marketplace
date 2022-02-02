@@ -7,13 +7,19 @@ export const ResultCard = ({ data }) => {
       <div className="card-img-container">
         <img className="card-img" src={data.images.large} alt={data.name} />
       </div>
-      <p className="card-name">{data.name}</p>
-      <p className="card-rarity">{data.rarity}</p>
+      <p className="card-name">{data.name ? data.name : "(Card name N/A)"}</p>
+      <p className="card-rarity">
+        {data.rarity ? data.rarity : "(Unknown Rarity)"}
+      </p>
       <div className="card-sale-info">
         <span className="card-price">
-          {"$" + data.cardmarket.prices.averageSellPrice}
+          {data.cardmarket.prices
+            ? "$" + data.cardmarket.prices.averageSellPrice
+            : "(N/A)"}
         </span>
-        <span className="card-stock">{data.set.total + " left"}</span>
+        <span className="card-stock">
+          {!!data.set.total ? data.set.total + " left" : "Out of stock"}
+        </span>
       </div>
       <button className="select-card-btn">Select Card</button>
     </div>
