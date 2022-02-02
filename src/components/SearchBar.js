@@ -60,7 +60,7 @@ export const SearchBar = ({
     // }
   };
 
-  // ---LOGIC TO USE IF FILTER CANNOT BE DONE ON API---
+  //* ---LOGIC TO USE IF FILTER CANNOT BE DONE ON API---
   // const filterByType = (list, matcher) => {
   //   const filteredList = !!matcher
   //     ? list.filter(
