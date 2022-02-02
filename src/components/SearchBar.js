@@ -14,6 +14,8 @@ export const SearchBar = ({
   setFilteredResults,
   pageIndex,
   setPageIndex,
+  endOfResults,
+  setEndOfResults,
 }) => {
   const [filterTypeValue, setFilterTypeValue] = useState("");
   const [filterRarityValue, setFilterRarityValue] = useState("");
@@ -22,9 +24,12 @@ export const SearchBar = ({
   const requestSearch = async (query) => {
     try {
       const response = await axios.get(
-        `https://api.pokemontcg.io/v2/cards?q=name:${query}*&orderBy=name&page=${1}&pageSize=12`
+        `https://api.pokemontcg.io/v2/cards?q=name:"${query}*"&orderBy=name&page=${1}&pageSize=12`
       );
       const results = response.data.data;
+      if (results.length < 12) {
+        setEndOfResults(true);
+      }
       return results;
     } catch (err) {
       console.log(err);
@@ -32,6 +37,7 @@ export const SearchBar = ({
   };
 
   const handleSearch = async (searchInput) => {
+    setEndOfResults(false);
     setPageIndex(1);
     const results = await requestSearch(searchInput);
     // const results = _apiData.data;

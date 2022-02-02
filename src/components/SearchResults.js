@@ -11,8 +11,9 @@ export const SearchResults = ({
   filteredResults,
   pageIndex,
   setPageIndex,
+  endOfResults,
+  setEndOfResults,
 }) => {
-  const [endOfResults, setEndOfResults] = useState(false);
   const handleShowMore = async () => {
     console.log("Show more!");
     setPageIndex(pageIndex + 1);
@@ -29,10 +30,10 @@ export const SearchResults = ({
     try {
       console.log("Page index is: ", pageIndex);
       const response = await axios.get(
-        `https://api.pokemontcg.io/v2/cards?q=name:${searchInput}*&orderBy=name&page=${pageIndex}&pageSize=12`
+        `https://api.pokemontcg.io/v2/cards?q=name:"${searchInput}*"&orderBy=name&page=${pageIndex}&pageSize=12`
       );
       const results = response.data.data;
-      if (!!results) {
+      if (results.length < 12) {
         setEndOfResults(true);
       }
       setSearchResults(searchResults.concat(results));
@@ -49,7 +50,11 @@ export const SearchResults = ({
         ))}
       <div className="showmore-btn-container">
         <button className="showmore-btn" onClick={() => handleShowMore()}>
-          {endOfResults ? "No more items found." : "Show more"}
+          {!filteredResults.length
+            ? "Start searching by entering a card name."
+            : endOfResults
+            ? "No more items found."
+            : "Show more"}
         </button>
       </div>
     </div>

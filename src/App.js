@@ -9,7 +9,8 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
-  const [pageIndex, setPageIndex] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [endOfResults, setEndOfResults] = useState(false);
 
   return (
     <div className="App">
@@ -22,6 +23,8 @@ function App() {
         setFilteredResults={setFilteredResults}
         pageIndex={pageIndex}
         setPageIndex={setPageIndex}
+        endOfResults={endOfResults}
+        setEndOfResults={setEndOfResults}
       />
       <SearchResults
         searchInput={searchInput}
@@ -30,6 +33,8 @@ function App() {
         filteredResults={filteredResults}
         pageIndex={pageIndex}
         setPageIndex={setPageIndex}
+        endOfResults={endOfResults}
+        setEndOfResults={setEndOfResults}
       />
       <ViewCartButton />
     </div>
