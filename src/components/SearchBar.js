@@ -3,8 +3,8 @@ import "./SearchBar.css";
 import { PKMN_TYPES } from "../_CONSTANTS/PKMN_TYPES";
 import { RARITIES } from "../_CONSTANTS/RARITIES";
 import { SET_LEGALITIES } from "../_CONSTANTS/SET_LEGALITIES";
-import { _apiData } from "../_mocks/search_results";
 import { capFirstLetter } from "../utils/capFirstLetter";
+import axios from "axios";
 
 export const SearchBar = ({
   searchResults,
@@ -16,14 +16,21 @@ export const SearchBar = ({
   const [filterRarityValue, setFilterRarityValue] = useState("");
   const [filterSetValue, setFilterSetValue] = useState("");
 
-  const requestSearch = async () => {
-    const results = await [];
-    return results;
+  const requestSearch = async (query) => {
+    try {
+      const response = await axios.get(
+        `https://api.pokemontcg.io/v2/cards?q=name:${query}*&orderBy=name&page=${1}&pageSize=12`
+      );
+      const results = response.data.data;
+      return results;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleSearch = (searchInput) => {
-    // const results = requestSearch(searchInput);
-    const results = _apiData.data;
+  const handleSearch = async (searchInput) => {
+    const results = await requestSearch(searchInput);
+    // const results = _apiData.data;
     setSearchResults(results);
   };
 
@@ -31,9 +38,10 @@ export const SearchBar = ({
     const filteredList = !!matcher
       ? list.filter(
           (x) =>
-            x.types.includes(matcher.toLowerCase()) ||
-            x.types.includes(matcher.toUpperCase()) ||
-            x.types.includes(capFirstLetter(matcher))
+            x.types &&
+            (x.types.includes(matcher.toLowerCase()) ||
+              x.types.includes(matcher.toUpperCase()) ||
+              x.types.includes(capFirstLetter(matcher)))
         )
       : list;
     console.log("Filter by type ", matcher, "=", filteredList);
@@ -57,10 +65,12 @@ export const SearchBar = ({
   };
 
   const filterResults = (results) => {
-    results = filterByType(results, filterTypeValue);
-    results = filterByRarity(results, filterRarityValue);
-    results = filterBySet(results, filterSetValue);
-    return results;
+    if (!!results) {
+      results = filterByType(results, filterTypeValue);
+      results = filterByRarity(results, filterRarityValue);
+      results = filterBySet(results, filterSetValue);
+      return results;
+    }
   };
 
   useEffect(() => {
