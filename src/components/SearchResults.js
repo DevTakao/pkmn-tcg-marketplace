@@ -19,13 +19,6 @@ export const SearchResults = ({
     setPageIndex(pageIndex + 1);
   };
 
-  useEffect(() => {
-    if (pageIndex > 1) {
-      requestNextPage(pageIndex);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageIndex]);
-
   const requestNextPage = async (pageIndex) => {
     try {
       console.log("Page index is: ", pageIndex);
@@ -42,6 +35,22 @@ export const SearchResults = ({
     }
   };
 
+  useEffect(() => {
+    if (pageIndex > 1) {
+      requestNextPage(pageIndex);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageIndex]);
+
+  useEffect(() => {
+    if (!filteredResults.length) {
+      setEndOfResults(true);
+    } else {
+      setEndOfResults(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredResults]);
+
   return (
     <div className="SearchResults">
       {!!filteredResults &&
@@ -49,7 +58,7 @@ export const SearchResults = ({
           <ResultCard key={uniqueId() + "_" + data.id} data={data} />
         ))}
       <div className="showmore-btn-container">
-        {!!filteredResults.length ? (
+        {!!searchResults.length ? (
           <button className="showmore-btn" onClick={() => handleShowMore()}>
             {endOfResults ? "No more items found." : "Show more"}
           </button>
