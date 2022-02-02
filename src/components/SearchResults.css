@@ -6,6 +6,10 @@
   gap: 1.5rem;
 }
 
+.SearchResults .showmore-btn-container {
+  width: 100%;
+}
+
 .SearchResults .showmore-btn {
   cursor: pointer;
   background-color: transparent;

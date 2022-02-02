@@ -3,21 +3,81 @@ import "./SearchBar.css";
 import { PKMN_TYPES } from "../_CONSTANTS/PKMN_TYPES";
 import { RARITIES } from "../_CONSTANTS/RARITIES";
 import { SET_LEGALITIES } from "../_CONSTANTS/SET_LEGALITIES";
+import { _apiData } from "../_mocks/search_results";
+import { capFirstLetter } from "../utils/capFirstLetter";
 
-export const SearchBar = () => {
+export const SearchBar = ({
+  searchResults,
+  setSearchResults,
+  setFilteredResults,
+}) => {
   const [searchInput, setSearchInput] = useState("");
+  const [filterTypeValue, setFilterTypeValue] = useState("");
+  const [filterRarityValue, setFilterRarityValue] = useState("");
+  const [filterSetValue, setFilterSetValue] = useState("");
+
+  const requestSearch = async () => {
+    const results = await [];
+    return results;
+  };
+
+  const handleSearch = (searchInput) => {
+    // const results = requestSearch(searchInput);
+    const results = _apiData.data;
+    setSearchResults(results);
+  };
+
+  const filterByType = (list, matcher) => {
+    const filteredList = !!matcher
+      ? list.filter(
+          (x) =>
+            x.types.includes(matcher.toLowerCase()) ||
+            x.types.includes(matcher.toUpperCase()) ||
+            x.types.includes(capFirstLetter(matcher))
+        )
+      : list;
+    console.log("Filter by type ", matcher, "=", filteredList);
+    return filteredList;
+  };
+
+  const filterByRarity = (list, matcher) => {
+    const filteredList = !!matcher
+      ? list.filter((x) => x.rarity.toLowerCase() === matcher.toLowerCase())
+      : list;
+    console.log("Filter by rarity ", matcher, "=", filteredList);
+    return filteredList;
+  };
+
+  const filterBySet = (list, matcher) => {
+    const filteredList = !!matcher
+      ? list.filter((x) => x.set.legalities[matcher.toLowerCase()] === "Legal")
+      : list;
+    console.log("Filter by set ", matcher, "=", filteredList);
+    return filteredList;
+  };
+
+  const filterResults = (results) => {
+    results = filterByType(results, filterTypeValue);
+    results = filterByRarity(results, filterRarityValue);
+    results = filterBySet(results, filterSetValue);
+    return results;
+  };
+
   useEffect(() => {
-    console.log(searchInput);
-  }, [searchInput]);
+    const filteredResults = filterResults(searchResults);
+    setFilteredResults(filteredResults);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchResults, filterTypeValue, filterRarityValue, filterSetValue]);
 
   return (
     <div className="SearchBar">
       <form
         className="search-form"
-        onSubmit={() => {
-          console.log("Form submitted.");
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch(searchInput);
         }}
-        action=""
+        // action="javascript:void"
       >
         <input
           className="search-input"
@@ -28,10 +88,14 @@ export const SearchBar = () => {
         />
         <select
           className="filter-select filter-type-select"
-          defaultValue={"_placeholder"}
+          value={filterTypeValue}
+          onChange={(e) => setFilterTypeValue(e.target.value)}
         >
-          <option className="option-placeholder" value="_placeholder" disabled>
+          <option className="option-placeholder" value="" disabled>
             Type
+          </option>
+          <option className="option-item" value="">
+            -any-
           </option>
           {PKMN_TYPES.map((type) => (
             <option
@@ -45,10 +109,14 @@ export const SearchBar = () => {
         </select>
         <select
           className="filter-select filter-rarity-select"
-          defaultValue={"_placeholder"}
+          value={filterRarityValue}
+          onChange={(e) => setFilterRarityValue(e.target.value)}
         >
-          <option className="option-placeholder" value="_placeholder" disabled>
+          <option className="option-placeholder" value="" disabled>
             Rarity
+          </option>
+          <option className="option-item" value="">
+            -any-
           </option>
           {RARITIES.map((rarity) => (
             <option
@@ -62,10 +130,14 @@ export const SearchBar = () => {
         </select>
         <select
           className="filter-select filter-set-select"
-          defaultValue={"_placeholder"}
+          value={filterSetValue}
+          onChange={(e) => setFilterSetValue(e.target.value)}
         >
-          <option className="option-placeholder" value="_placeholder" disabled>
+          <option className="option-placeholder" value="" disabled>
             Set
+          </option>
+          <option className="option-item" value="">
+            -any-
           </option>
           {SET_LEGALITIES.map((set) => (
             <option key={set} className="option-item" value={set.toLowerCase()}>
