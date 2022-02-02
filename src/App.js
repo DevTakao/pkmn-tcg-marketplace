@@ -1,10 +1,11 @@
-import { createContext, useEffect, useLayoutEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
 import { ViewCartButton } from "./components/ViewCartButton";
 
+//* CAN BE USED TO ADD DYNAMIC CSS IN JS
 export const WindowSizeContext = createContext({ width: 0, height: 0 });
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     };
     window.addEventListener("resize", handleSetWindowSize);
-  }, [searchResults]);
+  }, []);
 
   useEffect(() => {
     console.log("Search results", searchResults);

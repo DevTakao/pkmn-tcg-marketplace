@@ -1,18 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { WindowSizeContext } from "../App";
+import React from "react";
 import "./ResultCard.css";
 
-export const ResultCard = ({ searchResults, data }) => {
-  const windowSize = useContext(WindowSizeContext);
-  const [cardMt, setCardMt] = useState("0px");
-
-  useEffect(() => {
-    const cardElement = document.getElementsByClassName("card-img")[0];
-    setCardMt(parseFloat(getComputedStyle(cardElement).height) + "px");
-  }, [windowSize, searchResults]);
-
+export const ResultCard = ({ data }) => {
   return (
-    <div className="ResultCard" style={searchResults && { marginTop: cardMt }}>
+    <div className="ResultCard">
       <div className="card-img-container">
         <img className="card-img" src={data.images.large} alt={data.name} />
       </div>
