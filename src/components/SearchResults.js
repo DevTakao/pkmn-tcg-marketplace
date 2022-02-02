@@ -71,7 +71,11 @@ export const SearchResults = ({
     <div className="SearchResults">
       {!!searchResults &&
         searchResults.map((data) => (
-          <ResultCard key={uniqueId() + "_" + data.id} data={data} />
+          <ResultCard
+            key={uniqueId() + "_" + data.id}
+            searchResults={searchResults}
+            data={data}
+          />
         ))}
       <div className="showmore-btn-container">
         {searchResults.length ? (

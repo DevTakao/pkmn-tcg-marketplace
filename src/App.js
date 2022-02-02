@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useLayoutEffect, useState } from "react";
 import "./App.css";
 import { SearchBar } from "./components/SearchBar";
 import { SearchResults } from "./components/SearchResults";
@@ -23,10 +23,7 @@ function App() {
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     };
     window.addEventListener("resize", handleSetWindowSize);
-    return () => {
-      window.removeEventListener(handleSetWindowSize, null);
-    };
-  }, []);
+  }, [searchResults]);
 
   useEffect(() => {
     console.log("Search results", searchResults);
