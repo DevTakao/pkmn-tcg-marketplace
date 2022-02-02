@@ -1,0 +1,47 @@
+.TopHeader {
+  position: relative;
+  z-index: 20000;
+}
+
+.TopHeader .header-content {
+  position: relative;
+  background-color: #fff;
+  padding: 0.5rem 0 1.5rem 0;
+  box-shadow: 1px 3px 5px 2px rgb(196, 196, 196);
+}
+
+.TopHeader .heading-text {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.TopHeader .logo-container,
+.TopHeader .logo-shadow {
+  background-color: #fff;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.TopHeader .logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.TopHeader .logo-container {
+  z-index: 3;
+}
+.TopHeader .header-content {
+  z-index: 2;
+}
+.TopHeader .logo-shadow {
+  z-index: 1;
+  box-shadow: 1px 3px 5px 2px rgb(196, 196, 196);
+}
