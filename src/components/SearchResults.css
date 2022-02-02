@@ -1,5 +1,7 @@
 .SearchResults {
-  padding: 1rem 20% 10rem 20%;
+  max-width: calc(100vw * 0.7);
+  margin: auto;
+  padding: 1rem 0 10rem 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -7,7 +9,9 @@
 }
 
 .SearchResults .showmore-btn-container {
-  width: 100%;
+  align-self: stretch;
+  flex-basis: 100%;
+  text-align: center;
 }
 
 .SearchResults .showmore-btn {
