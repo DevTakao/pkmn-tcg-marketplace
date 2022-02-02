@@ -13,12 +13,14 @@ export const ResultCard = ({ data }) => {
       </p>
       <div className="card-sale-info">
         <span className="card-price">
-          {data.cardmarket.prices
+          {data.cardmarket && data.cardmarket.prices
             ? "$" + data.cardmarket.prices.averageSellPrice
             : "(N/A)"}
         </span>
         <span className="card-stock">
-          {!!data.set.total ? data.set.total + " left" : "Out of stock"}
+          {data.set && data.set.total
+            ? data.set.total + " left"
+            : "Out of stock"}
         </span>
       </div>
       <button className="select-card-btn">Select Card</button>

@@ -11,86 +11,106 @@ export const SearchBar = ({
   setSearchInput,
   searchResults,
   setSearchResults,
+  setFilterTypeValue,
+  setFilterRarityValue,
+  setFilterSetValue,
   setFilteredResults,
+  filterTypeValue,
+  filterRarityValue,
+  filterSetValue,
   pageIndex,
   setPageIndex,
   endOfResults,
   setEndOfResults,
 }) => {
-  const [filterTypeValue, setFilterTypeValue] = useState("");
-  const [filterRarityValue, setFilterRarityValue] = useState("");
-  const [filterSetValue, setFilterSetValue] = useState("");
-
-  const requestSearch = async (query) => {
+  const requestSearch = async () => {
+    console.log("Page index is: ", pageIndex);
     try {
-      const response = await axios.get(
-        `https://api.pokemontcg.io/v2/cards?q=name:"${query}*"&orderBy=name&page=${1}&pageSize=12`
-      );
+      const config = {
+        method: "get",
+        url: "https://api.pokemontcg.io/v2/cards",
+        headers: {},
+        params: {
+          q: `name:"*${searchInput}*" ${
+            filterTypeValue ? "types:" + filterTypeValue : ""
+          } ${filterRarityValue ? '!rarity:"' + filterRarityValue + '"' : ""} ${
+            filterSetValue ? "legalities." + filterSetValue + ":legal" : ""
+          }`,
+          page: 1,
+          pageSize: 12,
+          orderBy: "name",
+        },
+      };
+      const response = await axios(config);
       const results = response.data.data;
+      setSearchResults(results);
       if (results.length < 12) {
         setEndOfResults(true);
       }
-      return results;
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleSearch = async (searchInput) => {
+  const handleSearch = async () => {
     // if (searchInput.trim()) {
     setEndOfResults(false);
+    requestSearch();
     setPageIndex(1);
-    const results = await requestSearch(searchInput);
-    setSearchResults(results);
     // }
   };
 
-  const filterByType = (list, matcher) => {
-    const filteredList = !!matcher
-      ? list.filter(
-          (x) =>
-            !!x.types &&
-            (x.types.includes(matcher.toLowerCase()) ||
-              x.types.includes(matcher.toUpperCase()) ||
-              x.types.includes(capFirstLetter(matcher)))
-        )
-      : list;
-    console.log("Filter by type ", matcher, "=", filteredList);
-    return filteredList;
-  };
+  // ---LOGIC TO USE IF FILTER CANNOT BE DONE ON API---
+  // const filterByType = (list, matcher) => {
+  //   const filteredList = !!matcher
+  //     ? list.filter(
+  //         (x) =>
+  //           !!x.types &&
+  //           (x.types.includes(matcher.toLowerCase()) ||
+  //             x.types.includes(matcher.toUpperCase()) ||
+  //             x.types.includes(capFirstLetter(matcher)))
+  //       )
+  //     : list;
+  //   console.log("Filter by type ", matcher, "=", filteredList);
+  //   return filteredList;
+  // };
 
-  const filterByRarity = (list, matcher) => {
-    const filteredList = !!matcher
-      ? list.filter(
-          (x) => !!x.rarity && x.rarity.toLowerCase() === matcher.toLowerCase()
-        )
-      : list;
-    console.log("Filter by rarity ", matcher, "=", filteredList);
-    return filteredList;
-  };
+  // const filterByRarity = (list, matcher) => {
+  //   const filteredList = !!matcher
+  //     ? list.filter(
+  //         (x) => !!x.rarity && x.rarity.toLowerCase() === matcher.toLowerCase()
+  //       )
+  //     : list;
+  //   console.log("Filter by rarity ", matcher, "=", filteredList);
+  //   return filteredList;
+  // };
 
-  const filterBySet = (list, matcher) => {
-    const filteredList = !!matcher
-      ? list.filter((x) => x.set.legalities[matcher.toLowerCase()] === "Legal")
-      : list;
-    console.log("Filter by set ", matcher, "=", filteredList);
-    return filteredList;
-  };
+  // const filterBySet = (list, matcher) => {
+  //   const filteredList = !!matcher
+  //     ? list.filter((x) => x.set.legalities[matcher.toLowerCase()] === "Legal")
+  //     : list;
+  //   console.log("Filter by set ", matcher, "=", filteredList);
+  //   return filteredList;
+  // };
 
-  const filterResults = (results) => {
-    if (!!results) {
-      results = filterByType(results, filterTypeValue);
-      results = filterByRarity(results, filterRarityValue);
-      results = filterBySet(results, filterSetValue);
-      return results;
-    }
-  };
+  // const filterResults = (results) => {
+  //   if (!!results) {
+  //     results = filterByType(results, filterTypeValue);
+  //     results = filterByRarity(results, filterRarityValue);
+  //     results = filterBySet(results, filterSetValue);
+  //     return results;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // do api call here and set data
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchResults, filterTypeValue, filterRarityValue, filterSetValue]);
 
   useEffect(() => {
-    const filteredResults = filterResults(searchResults);
-    setFilteredResults(filteredResults);
+    console.log(filterTypeValue, filterRarityValue, filterSetValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchResults, filterTypeValue, filterRarityValue, filterSetValue]);
+  }, [filterTypeValue, filterRarityValue, filterSetValue]);
 
   return (
     <div className="SearchBar">
@@ -98,7 +118,7 @@ export const SearchBar = ({
         className="search-form"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSearch(searchInput);
+          handleSearch();
         }}
         // action="javascript:void"
       >

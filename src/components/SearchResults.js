@@ -8,6 +8,9 @@ export const SearchResults = ({
   searchInput,
   searchResults,
   setSearchResults,
+  filterTypeValue,
+  filterRarityValue,
+  filterSetValue,
   filteredResults,
   pageIndex,
   setPageIndex,
@@ -22,14 +25,27 @@ export const SearchResults = ({
   const requestNextPage = async (pageIndex) => {
     try {
       console.log("Page index is: ", pageIndex);
-      const response = await axios.get(
-        `https://api.pokemontcg.io/v2/cards?q=name:"${searchInput}*"&orderBy=name&page=${pageIndex}&pageSize=12`
-      );
+      const config = {
+        method: "get",
+        url: "https://api.pokemontcg.io/v2/cards",
+        headers: {},
+        params: {
+          q: `name:"*${searchInput}*" ${
+            filterTypeValue ? "types:" + filterTypeValue : ""
+          } ${filterRarityValue ? '!rarity:"' + filterRarityValue + '"' : ""} ${
+            filterSetValue ? "legalities." + filterSetValue + ":legal" : ""
+          }`,
+          page: pageIndex,
+          pageSize: 12,
+          orderBy: "name",
+        },
+      };
+      const response = await axios(config);
       const results = response.data.data;
+      setSearchResults(searchResults.concat(results));
       if (results.length < 12) {
         setEndOfResults(true);
       }
-      setSearchResults(searchResults.concat(results));
     } catch (err) {
       console.log(err);
     }
@@ -43,22 +59,22 @@ export const SearchResults = ({
   }, [pageIndex]);
 
   useEffect(() => {
-    if (!filteredResults.length) {
+    if (!searchResults.length) {
       setEndOfResults(true);
     } else {
       setEndOfResults(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredResults]);
+  }, [searchResults]);
 
   return (
     <div className="SearchResults">
-      {!!filteredResults &&
-        filteredResults.map((data) => (
+      {!!searchResults &&
+        searchResults.map((data) => (
           <ResultCard key={uniqueId() + "_" + data.id} data={data} />
         ))}
       <div className="showmore-btn-container">
-        {!!searchResults.length ? (
+        {searchResults.length ? (
           <button className="showmore-btn" onClick={() => handleShowMore()}>
             {endOfResults ? "No more items found." : "Show more"}
           </button>
