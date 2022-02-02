@@ -10,6 +10,7 @@ export const SearchResults = () => {
       {apiData.data.map((data) => (
         <ResultCard key={data.id} data={data} />
       ))}
+      <button className="showmore-btn">Show more</button>
     </div>
   );
 };
