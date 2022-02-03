@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./SearchBar.css";
 import { PKMN_TYPES } from "../_CONSTANTS/PKMN_TYPES";
 import { RARITIES } from "../_CONSTANTS/RARITIES";
 import { SET_LEGALITIES } from "../_CONSTANTS/SET_LEGALITIES";
-import { capFirstLetter } from "../utils/capFirstLetter";
 import axios from "axios";
 
 export const SearchBar = ({

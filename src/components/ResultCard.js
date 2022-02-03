@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../App";
 import "./ResultCard.css";
 
 export const ResultCard = ({ data }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
+  const [disableSelect, setDisableSelect] = useState(false);
 
   const addToCart = (item) => {
     console.log("Item to add", item);
@@ -25,6 +26,23 @@ export const ResultCard = ({ data }) => {
       ? removeFromCart(item)
       : setCartItems(cartItems.concat(itemToAdd));
   };
+
+  const hasBadData = (data) => {
+    data.images.large &&
+    data.name &&
+    data.rarity &&
+    data.cardmarket &&
+    data.cardmarket.prices &&
+    data.cardmarket.prices.averageSellPrice &&
+    data.set &&
+    data.set.total
+      ? setDisableSelect(false)
+      : setDisableSelect(true);
+  };
+
+  useEffect(() => {
+    hasBadData(data);
+  }, [data]);
 
   return (
     <div className="ResultCard">
@@ -54,6 +72,7 @@ export const ResultCard = ({ data }) => {
         onClick={() => {
           addToCart(data);
         }}
+        disabled={disableSelect}
       >
         Select Card
       </button>

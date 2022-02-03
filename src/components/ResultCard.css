@@ -74,3 +74,12 @@
 .ResultCard .select-card-btn:hover {
   filter: brightness(120%);
 }
+
+.ResultCard .select-card-btn:disabled {
+  background-color: rgb(214, 214, 214);
+  color: rgb(190, 190, 190);
+}
+.ResultCard .select-card-btn:disabled:hover {
+  cursor: not-allowed;
+  filter: none;
+}
