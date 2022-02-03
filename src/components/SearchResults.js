@@ -3,6 +3,8 @@ import "./SearchResults.css";
 import { ResultCard } from "./ResultCard";
 import axios from "axios";
 import uniqueId from "lodash.uniqueid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export const SearchResults = ({
   searchInput,
@@ -72,6 +74,9 @@ export const SearchResults = ({
             onClick={() => handleShowMore()}
             disabled={endOfResults}
           >
+            {!endOfResults && (
+              <FontAwesomeIcon icon={faSearch} className="show-more-icon" />
+            )}
             {endOfResults ? "No more items found." : "Show more"}
           </button>
         ) : (

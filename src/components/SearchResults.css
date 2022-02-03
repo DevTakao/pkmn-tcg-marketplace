@@ -8,6 +8,10 @@
   gap: 5rem;
 }
 
+.SearchResults .show-more-icon {
+  margin-right: 1rem;
+}
+
 .SearchResults .showmore-btn-container {
   align-self: stretch;
   flex-basis: 100%;
