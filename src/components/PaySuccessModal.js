@@ -1,5 +1,7 @@
 import React from "react";
 import "./PaySuccessModal.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const PaySuccessModal = ({ setPayDone }) => {
   return (
@@ -9,7 +11,7 @@ export const PaySuccessModal = ({ setPayDone }) => {
       </div>
       <p className="success-text">Payment Success!</p>
       <button className="close-modal-btn" onClick={() => setPayDone(false)}>
-        X
+        <FontAwesomeIcon icon={faTimes} className="x-icon" />
       </button>
     </div>
   );

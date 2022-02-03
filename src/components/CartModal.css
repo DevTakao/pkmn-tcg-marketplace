@@ -241,3 +241,7 @@
 .CartModal .close-cart-btn:hover {
   filter: brightness(120%);
 }
+
+.CartModal .x-icon {
+  font-size: inherit;
+}

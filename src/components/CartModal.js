@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import "./CartModal.css";
 import uniqueId from "lodash.uniqueid";
 import { CartContext } from "../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const CartModal = ({ setOpenCart, setPayDone }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
@@ -179,7 +181,7 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
         </div>
       </div>
       <button className="close-cart-btn" onClick={() => setOpenCart(false)}>
-        X
+        <FontAwesomeIcon icon={faTimes} className="x-icon" />
       </button>
     </div>
   );
