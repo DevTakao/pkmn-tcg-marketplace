@@ -9,14 +9,29 @@ export const CartModal = ({ setOpenCart }) => {
   const data = cartItems;
 
   const handleQuantityEdit = (_item, action) => {
-    const updatedCart = cartItems
-      .filter((item) => item.item.id !== _item.item.id)
-      .concat([
-        {
-          item: _item.item,
-          quantity: action === "INC" ? _item.quantity + 1 : _item.quantity - 1,
-        },
-      ]);
+    let newQuantity = 0;
+    if (action === "INC") {
+      if (_item.quantity < _item.item.set.total) {
+        newQuantity = _item.quantity + 1;
+      } else {
+        newQuantity = _item.quantity;
+      }
+    } else {
+      if (_item.quantity > 0) {
+        newQuantity = _item.quantity - 1;
+      }
+    }
+
+    const updatedCart = !!newQuantity
+      ? cartItems
+          .filter((item) => item.item.id !== _item.item.id)
+          .concat([
+            {
+              item: _item.item,
+              quantity: newQuantity,
+            },
+          ])
+      : cartItems.filter((x) => x.item.id !== _item.item.id);
     console.log(updatedCart);
     setCartItems(updatedCart);
   };
