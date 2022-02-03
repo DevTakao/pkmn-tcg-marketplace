@@ -12,10 +12,10 @@ export const CartContext = createContext({
   setCartItems: () => {},
 });
 //* CAN BE USED TO ADD DYNAMIC CSS IN JS
-export const WindowSizeContext = createContext({ width: 0, height: 0 });
+// export const WindowSizeContext = createContext({ width: 0, height: 0 });
 
 function App() {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  // const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [filterTypeValue, setFilterTypeValue] = useState("");
@@ -28,12 +28,12 @@ function App() {
   const [payDone, setPayDone] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
-    const handleSetWindowSize = () => {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-    window.addEventListener("resize", handleSetWindowSize);
-  }, []);
+  // useEffect(() => {
+  //   const handleSetWindowSize = () => {
+  //     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+  //   };
+  //   window.addEventListener("resize", handleSetWindowSize);
+  // }, []);
 
   useEffect(() => {
     console.log("Search results", searchResults);
@@ -48,50 +48,48 @@ function App() {
   }, [endOfResults]);
 
   return (
-    <WindowSizeContext.Provider value={windowSize}>
-      <CartContext.Provider value={{ cartItems, setCartItems }}>
-        <div className="App">
-          <TopHeader />
-          <SearchBar
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            filterTypeValue={filterTypeValue}
-            filterRarityValue={filterRarityValue}
-            filterSetValue={filterSetValue}
-            setFilterTypeValue={setFilterTypeValue}
-            setFilterRarityValue={setFilterRarityValue}
-            setFilterSetValue={setFilterSetValue}
-            setFilteredResults={setFilteredResults}
-            pageIndex={pageIndex}
-            setPageIndex={setPageIndex}
-            endOfResults={endOfResults}
-            setEndOfResults={setEndOfResults}
-          />
-          <SearchResults
-            searchInput={searchInput}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            filterTypeValue={filterTypeValue}
-            filterRarityValue={filterRarityValue}
-            filterSetValue={filterSetValue}
-            filteredResults={filteredResults}
-            pageIndex={pageIndex}
-            setPageIndex={setPageIndex}
-            endOfResults={endOfResults}
-            setEndOfResults={setEndOfResults}
-          />
-          {!openCart && !payDone && (
-            <ViewCartButton setOpenCart={setOpenCart} />
-          )}
-          {!!openCart && (
-            <CartModal setOpenCart={setOpenCart} setPayDone={setPayDone} />
-          )}
-          {!!payDone && <PaySuccessModal setPayDone={setPayDone} />}
-        </div>
-      </CartContext.Provider>
-    </WindowSizeContext.Provider>
+    // <WindowSizeContext.Provider value={windowSize}>
+    <CartContext.Provider value={{ cartItems, setCartItems }}>
+      <div className="App">
+        <TopHeader />
+        <SearchBar
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          filterTypeValue={filterTypeValue}
+          filterRarityValue={filterRarityValue}
+          filterSetValue={filterSetValue}
+          setFilterTypeValue={setFilterTypeValue}
+          setFilterRarityValue={setFilterRarityValue}
+          setFilterSetValue={setFilterSetValue}
+          setFilteredResults={setFilteredResults}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+          endOfResults={endOfResults}
+          setEndOfResults={setEndOfResults}
+        />
+        <SearchResults
+          searchInput={searchInput}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          filterTypeValue={filterTypeValue}
+          filterRarityValue={filterRarityValue}
+          filterSetValue={filterSetValue}
+          filteredResults={filteredResults}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+          endOfResults={endOfResults}
+          setEndOfResults={setEndOfResults}
+        />
+        {!openCart && !payDone && <ViewCartButton setOpenCart={setOpenCart} />}
+        {!!openCart && (
+          <CartModal setOpenCart={setOpenCart} setPayDone={setPayDone} />
+        )}
+        {!!payDone && <PaySuccessModal setPayDone={setPayDone} />}
+      </div>
+    </CartContext.Provider>
+    // </WindowSizeContext.Provider>
   );
 }
 
