@@ -13,6 +13,7 @@
 
 .SearchBar .search-input,
 .SearchBar .filter-select {
+  font-size: 1.2rem;
   margin: 0;
   padding: 0 0.5rem;
   outline: 0;
@@ -24,7 +25,8 @@
 }
 
 .SearchBar .search-input {
-  padding: 0 1rem;
+  padding: 0;
+  padding-left: 2rem;
   border-top-left-radius: 1.5rem;
   border-bottom-left-radius: 1.5rem;
 }

@@ -5,6 +5,7 @@
   height: 5rem;
   background: linear-gradient(360deg, #fff, 50%, transparent);
   pointer-events: none;
+  font-size: 1rem;
 }
 .ViewCartButton .button {
   pointer-events: auto;
@@ -13,11 +14,11 @@
   outline: 0;
   background-color: rgb(30, 135, 255);
   color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 0.75rem;
   box-shadow: 0px 1px 2px 1px rgb(119, 119, 119);
   position: fixed;
-  bottom: 2rem;
+  bottom: 3rem;
   left: 50%;
   transform: translateX(-50%);
 }

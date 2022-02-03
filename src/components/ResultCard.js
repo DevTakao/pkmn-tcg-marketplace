@@ -5,6 +5,7 @@ import "./ResultCard.css";
 export const ResultCard = ({ data }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const [disableSelect, setDisableSelect] = useState(false);
+  const [selectedCard, setSelectedCard] = useState("");
 
   const addToCart = (item) => {
     console.log("Item to add", item);
@@ -44,6 +45,12 @@ export const ResultCard = ({ data }) => {
     hasBadData(data);
   }, [data]);
 
+  useEffect(() => {
+    !!cartItems.filter((item) => item.item.id === data.id).length
+      ? setSelectedCard("selected-card")
+      : setSelectedCard("");
+  }, [cartItems, data.id]);
+
   return (
     <div className="ResultCard">
       <div className="card-img-container">
@@ -68,13 +75,13 @@ export const ResultCard = ({ data }) => {
         </span>
       </div>
       <button
-        className="select-card-btn"
+        className={`select-card-btn ${selectedCard}`}
         onClick={() => {
           addToCart(data);
         }}
         disabled={disableSelect}
       >
-        Select Card
+        {!!selectedCard ? "Selected" : "Select Card"}
       </button>
     </div>
   );
