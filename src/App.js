@@ -82,7 +82,9 @@ function App() {
             endOfResults={endOfResults}
             setEndOfResults={setEndOfResults}
           />
-          {!openCart && <ViewCartButton setOpenCart={setOpenCart} />}
+          {!openCart && !payDone && (
+            <ViewCartButton setOpenCart={setOpenCart} />
+          )}
           {!!openCart && (
             <CartModal setOpenCart={setOpenCart} setPayDone={setPayDone} />
           )}
