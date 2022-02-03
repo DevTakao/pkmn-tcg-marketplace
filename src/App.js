@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import "./App.css";
+import { CartModal } from "./components/CartModal";
 import { SearchBar } from "./components/SearchBar";
 import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
@@ -64,7 +65,8 @@ function App() {
           endOfResults={endOfResults}
           setEndOfResults={setEndOfResults}
         />
-        <ViewCartButton />
+        {/* <ViewCartButton /> */}
+        <CartModal />
       </div>
     </WindowSizeContext.Provider>
   );
