@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./CartModal.css";
-import { _apiData } from "../_mocks/search_results.js";
 import uniqueId from "lodash.uniqueid";
 import { CartContext } from "../App";
 
