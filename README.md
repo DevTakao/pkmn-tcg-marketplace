@@ -12,4 +12,6 @@
 - API: <https://pokemontcg.io>
 - Logo: <https://logos.fandom.com/wiki/Pok%C3%A9mon_Trading_Card_Game>
 
-Project started on: **17:00 - 02, Feb, 2022 GMT+6.30**
+---
+
+Project started: **17:00 - 02, Feb, 2022 GMT+6.30**
