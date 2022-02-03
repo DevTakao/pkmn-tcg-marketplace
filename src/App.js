@@ -19,6 +19,7 @@ function App() {
   const [filteredResults, setFilteredResults] = useState([]);
   const [pageIndex, setPageIndex] = useState(1);
   const [endOfResults, setEndOfResults] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
 
   useEffect(() => {
     const handleSetWindowSize = () => {
@@ -65,8 +66,8 @@ function App() {
           endOfResults={endOfResults}
           setEndOfResults={setEndOfResults}
         />
-        {/* <ViewCartButton /> */}
-        <CartModal />
+        {!openCart && <ViewCartButton setOpenCart={setOpenCart} />}
+        {!!openCart && <CartModal setOpenCart={setOpenCart} />}
       </div>
     </WindowSizeContext.Provider>
   );

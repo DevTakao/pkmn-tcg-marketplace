@@ -3,7 +3,7 @@ import "./CartModal.css";
 import { _apiData } from "../_mocks/search_results.js";
 import uniqueId from "lodash.uniqueid";
 
-export const CartModal = () => {
+export const CartModal = ({ setOpenCart }) => {
   const data = _apiData.data.slice(0, 4);
   console.log(data);
   return (
@@ -82,7 +82,9 @@ export const CartModal = () => {
           <button className="pay-button">Pay Now</button>
         </div>
       </div>
-      <button className="close-cart-btn">X</button>
+      <button className="close-cart-btn" onClick={() => setOpenCart(false)}>
+        X
+      </button>
     </div>
   );
 };
