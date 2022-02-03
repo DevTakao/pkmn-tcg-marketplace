@@ -1,32 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CartModal.css";
 import { _apiData } from "../_mocks/search_results.js";
 import uniqueId from "lodash.uniqueid";
+import { CartContext } from "../App";
 
 export const CartModal = ({ setOpenCart }) => {
-  const data = _apiData.data.slice(0, 4);
-  console.log(data);
+  const { cartItems, setCartItems } = useContext(CartContext);
+  const data = cartItems;
+
   return (
     <div className="CartModal">
       <div className="cart-item-area">
         <div className="cart-item-list">
-          {data.map((item) => (
-            <div key={uniqueId() + "_" + item.id} className="cart-item">
+          {data.map((cartItem) => (
+            <div
+              key={uniqueId() + "_" + cartItem.item.id}
+              className="cart-item"
+            >
               <div className="item-img-container">
                 <img
                   className="item-img"
-                  src={item.images.small}
-                  alt={item.name}
+                  src={cartItem.item.images.small}
+                  alt={cartItem.item.name}
                 />
               </div>
               <div className="stock-info-container">
                 <p className="item-name">
-                  {item.name ? item.name : "Card Name N/A"}
+                  {cartItem.item.name ? cartItem.item.name : "Card Name N/A"}
                 </p>
                 <p className="item-price">
-                  {item.cardmarket && item.cardmarket.prices ? (
+                  {cartItem.item.cardmarket &&
+                  cartItem.item.cardmarket.prices ? (
                     <span className="text-thicker">
-                      ${item.cardmarket.prices.averageSellPrice}
+                      ${cartItem.item.cardmarket.prices.averageSellPrice}
                     </span>
                   ) : (
                     "N/A"
@@ -34,9 +40,9 @@ export const CartModal = ({ setOpenCart }) => {
                   per card
                 </p>
                 <p className="item-instock text-grey">
-                  {item.set && !!item.set.total ? (
+                  {cartItem.item.set && !!cartItem.item.set.total ? (
                     <span className="text-red text-thicker">
-                      {item.set.total}
+                      {cartItem.item.set.total}
                     </span>
                   ) : (
                     "0"
@@ -46,7 +52,9 @@ export const CartModal = ({ setOpenCart }) => {
               </div>
               <div className="order-info-container">
                 <div className="order-quantity-container text-blue">
-                  <span className="order-quantity-number text-thicker">2</span>
+                  <span className="order-quantity-number text-thicker">
+                    {cartItem.quantity}
+                  </span>
                   <div className="order-quantity-controls">
                     <span className="order-quantity-control order-quantity-inc">
                       ^
@@ -66,7 +74,12 @@ export const CartModal = ({ setOpenCart }) => {
         </div>
         <div className="clear-cart-btn-container">
           <div className="white-shade"></div>
-          <button className="clear-cart-btn text-grey">Clear all</button>
+          <button
+            className="clear-cart-btn text-grey"
+            onClick={() => setCartItems([])}
+          >
+            Clear all
+          </button>
         </div>
       </div>
       <div className="net-total-area text-thicker">

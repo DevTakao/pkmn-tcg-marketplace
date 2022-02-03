@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../App";
 import "./ResultCard.css";
 
 export const ResultCard = ({ data }) => {
+  const { cartItems, setCartItems } = useContext(CartContext);
+
+  const addToCart = (item) => {
+    console.log("Item to add", item);
+    const itemToAdd = {
+      item: item,
+      quantity: 1,
+    };
+    const removeFromCart = (id) => {
+      const updatedCart = cartItems.filter((x) => x.item.id !== item.id);
+      setCartItems(updatedCart);
+    };
+    const isAlreadyAdded = (item) => {
+      return (
+        cartItems.length !==
+        cartItems.filter((x) => x.item.id !== item.id).length
+      );
+    };
+    isAlreadyAdded(item)
+      ? removeFromCart(item)
+      : setCartItems(cartItems.concat(itemToAdd));
+  };
+
   return (
     <div className="ResultCard">
       <div className="card-img-container">
@@ -23,7 +47,14 @@ export const ResultCard = ({ data }) => {
             : "Out of stock"}
         </span>
       </div>
-      <button className="select-card-btn">Select Card</button>
+      <button
+        className="select-card-btn"
+        onClick={() => {
+          addToCart(data);
+        }}
+      >
+        Select Card
+      </button>
     </div>
   );
 };

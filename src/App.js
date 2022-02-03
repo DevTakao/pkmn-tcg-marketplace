@@ -6,6 +6,10 @@ import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
 import { ViewCartButton } from "./components/ViewCartButton";
 
+export const CartContext = createContext({
+  cartItems: [],
+  setCartItems: () => {},
+});
 //* CAN BE USED TO ADD DYNAMIC CSS IN JS
 export const WindowSizeContext = createContext({ width: 0, height: 0 });
 
@@ -20,6 +24,7 @@ function App() {
   const [pageIndex, setPageIndex] = useState(1);
   const [endOfResults, setEndOfResults] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const handleSetWindowSize = () => {
@@ -32,43 +37,49 @@ function App() {
     console.log("Search results", searchResults);
   }, [searchResults]);
 
+  useEffect(() => {
+    console.log("Updated cart items: ", cartItems);
+  }, [cartItems]);
+
   return (
     <WindowSizeContext.Provider value={windowSize}>
-      <div className="App">
-        <TopHeader />
-        <SearchBar
-          searchInput={searchInput}
-          setSearchInput={setSearchInput}
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-          filterTypeValue={filterTypeValue}
-          filterRarityValue={filterRarityValue}
-          filterSetValue={filterSetValue}
-          setFilterTypeValue={setFilterTypeValue}
-          setFilterRarityValue={setFilterRarityValue}
-          setFilterSetValue={setFilterSetValue}
-          setFilteredResults={setFilteredResults}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-          endOfResults={endOfResults}
-          setEndOfResults={setEndOfResults}
-        />
-        <SearchResults
-          searchInput={searchInput}
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-          filterTypeValue={filterTypeValue}
-          filterRarityValue={filterRarityValue}
-          filterSetValue={filterSetValue}
-          filteredResults={filteredResults}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-          endOfResults={endOfResults}
-          setEndOfResults={setEndOfResults}
-        />
-        {!openCart && <ViewCartButton setOpenCart={setOpenCart} />}
-        {!!openCart && <CartModal setOpenCart={setOpenCart} />}
-      </div>
+      <CartContext.Provider value={{ cartItems, setCartItems }}>
+        <div className="App">
+          <TopHeader />
+          <SearchBar
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+            filterTypeValue={filterTypeValue}
+            filterRarityValue={filterRarityValue}
+            filterSetValue={filterSetValue}
+            setFilterTypeValue={setFilterTypeValue}
+            setFilterRarityValue={setFilterRarityValue}
+            setFilterSetValue={setFilterSetValue}
+            setFilteredResults={setFilteredResults}
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
+            endOfResults={endOfResults}
+            setEndOfResults={setEndOfResults}
+          />
+          <SearchResults
+            searchInput={searchInput}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+            filterTypeValue={filterTypeValue}
+            filterRarityValue={filterRarityValue}
+            filterSetValue={filterSetValue}
+            filteredResults={filteredResults}
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
+            endOfResults={endOfResults}
+            setEndOfResults={setEndOfResults}
+          />
+          {!openCart && <ViewCartButton setOpenCart={setOpenCart} />}
+          {!!openCart && <CartModal setOpenCart={setOpenCart} />}
+        </div>
+      </CartContext.Provider>
     </WindowSizeContext.Provider>
   );
 }
