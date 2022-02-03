@@ -37,7 +37,9 @@ export const ResultCard = ({ data }) => {
       </p>
       <div className="card-sale-info">
         <span className="card-price">
-          {data.cardmarket && data.cardmarket.prices
+          {data.cardmarket &&
+          data.cardmarket.prices &&
+          data.cardmarket.prices.averageSellPrice
             ? "$" + data.cardmarket.prices.averageSellPrice
             : "(N/A)"}
         </span>

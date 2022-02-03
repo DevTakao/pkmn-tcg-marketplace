@@ -30,12 +30,13 @@ export const CartModal = ({ setOpenCart }) => {
                 </p>
                 <p className="item-price">
                   {cartItem.item.cardmarket &&
-                  cartItem.item.cardmarket.prices ? (
+                  cartItem.item.cardmarket.prices &&
+                  cartItem.item.cardmarket.prices.averageSellPrice ? (
                     <span className="text-thicker">
                       ${cartItem.item.cardmarket.prices.averageSellPrice}
                     </span>
                   ) : (
-                    "N/A"
+                    "(N/A)"
                   )}{" "}
                   per card
                 </p>
