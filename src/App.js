@@ -41,6 +41,10 @@ function App() {
     console.log("Updated cart items: ", cartItems);
   }, [cartItems]);
 
+  useEffect(() => {
+    console.log("End of results: ", endOfResults);
+  }, [endOfResults]);
+
   return (
     <WindowSizeContext.Provider value={windowSize}>
       <CartContext.Provider value={{ cartItems, setCartItems }}>

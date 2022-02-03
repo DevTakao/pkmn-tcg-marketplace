@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchResults.css";
 import { ResultCard } from "./ResultCard";
 import axios from "axios";
@@ -46,6 +46,7 @@ export const SearchResults = ({
       if (results.length < 12) {
         setEndOfResults(true);
       }
+      console.log("Show more results", results);
     } catch (err) {
       console.log(err);
     }
@@ -58,15 +59,6 @@ export const SearchResults = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex]);
 
-  useEffect(() => {
-    if (!searchResults.length) {
-      setEndOfResults(true);
-    } else {
-      setEndOfResults(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchResults]);
-
   return (
     <div className="SearchResults">
       {!!searchResults &&
@@ -75,7 +67,11 @@ export const SearchResults = ({
         ))}
       <div className="showmore-btn-container">
         {searchResults.length ? (
-          <button className="showmore-btn" onClick={() => handleShowMore()}>
+          <button
+            className="showmore-btn"
+            onClick={() => handleShowMore()}
+            disabled={endOfResults}
+          >
             {endOfResults ? "No more items found." : "Show more"}
           </button>
         ) : (

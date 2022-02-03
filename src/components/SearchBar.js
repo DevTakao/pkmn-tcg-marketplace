@@ -41,19 +41,21 @@ export const SearchBar = ({
         },
       };
       const response = await axios(config);
-      const results = response.data.data;
-      setSearchResults(results);
+
+      const results = await response.data.data;
       if (results.length < 12) {
         setEndOfResults(true);
       }
+      setSearchResults(results);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const handleSearch = async () => {
+    console.log("handleSearch");
     setEndOfResults(false);
-    requestSearch();
+    await requestSearch();
     setPageIndex(1);
   };
 
