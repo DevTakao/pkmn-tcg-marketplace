@@ -55,7 +55,7 @@ export const ResultCard = ({ data }) => {
   return (
     <div className="ResultCard">
       <div className="card-img-container">
-        <img className="card-img" src={data.images.large} alt={data.name} />
+        <img className="card-img" src={data.images.small} alt={data.name} />
       </div>
       <p className="card-name">{data.name ? data.name : "(Card name N/A)"}</p>
       <p className="card-rarity">
