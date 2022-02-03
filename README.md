@@ -4,4 +4,4 @@
 
 ### Run the development build with `npm start` or `yarn start`.
 
--- You may find logs in the console due to development environment.
+**You may find logs in the console due to development environment.**
