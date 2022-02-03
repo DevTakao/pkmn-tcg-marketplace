@@ -6,3 +6,8 @@
 - Run the development build with `npm start` or `yarn start`.
 
 **You may find logs in the console due to development environment.**
+
+### Resources
+
+- API: <https://pokemontcg.io>
+- Logo: <https://logos.fandom.com/wiki/Pok%C3%A9mon_Trading_Card_Game>
