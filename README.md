@@ -14,4 +14,4 @@
 
 ---
 
-Project started: **17:00 - 02, Feb, 2022 GMT+6.30**
+Project started: **17:00 - 02 Feb, 2022 GMT+6.30**
