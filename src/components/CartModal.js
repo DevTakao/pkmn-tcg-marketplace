@@ -14,6 +14,7 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
   const [totalCards, setTotalCards] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  //  Compute and update total card quantity
   useEffect(() => {
     if (cartItems.length > 0) {
       if (cartItems.length === 1) {
@@ -30,6 +31,7 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
     }
   }, [cartItems]);
 
+  //  Compute and update total price
   useEffect(() => {
     if (cartItems.length > 0) {
       if (cartItems.length === 1) {
@@ -56,6 +58,8 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
 
   const handleQuantityEdit = (_item, action) => {
     let newQuantity = 0;
+
+    //  Validating quantity range with respect to stock
     if (action === "INC") {
       if (_item.quantity < _item.item.set.total) {
         newQuantity = _item.quantity + 1;
@@ -68,6 +72,7 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
         newQuantity = _item.quantity - 1;
       }
     }
+
     if (!!newQuantity) {
       let arr = [...cartItems];
       for (let i = 0; i < arr.length; i++) {
@@ -77,7 +82,7 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
         setCartItems(arr);
       }
     } else {
-      // newQuantity is falsy
+      // remove from cart if quantity becomes zero
       setCartItems(cartItems.filter((x) => x.item.id !== _item.item.id));
     }
   };

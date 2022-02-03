@@ -28,6 +28,7 @@ export const ResultCard = ({ data }) => {
       : setCartItems(cartItems.concat(itemToAdd));
   };
 
+  //  API contains inconsistent data, this helps to prevent computing with empty data sets
   const hasBadData = (data) => {
     data.images.large &&
     data.name &&

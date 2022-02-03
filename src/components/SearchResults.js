@@ -17,11 +17,7 @@ export const SearchResults = ({
   endOfResults,
   setEndOfResults,
 }) => {
-  const handleShowMore = async () => {
-    console.log("Show more!");
-    setPageIndex(pageIndex + 1);
-  };
-
+  //  API Call
   const requestNextPage = async (pageIndex) => {
     try {
       console.log("Page index is: ", pageIndex);
@@ -50,6 +46,10 @@ export const SearchResults = ({
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleShowMore = () => {
+    setPageIndex(pageIndex + 1);
   };
 
   useEffect(() => {

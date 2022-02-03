@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./SearchBar.css";
 import { PKMN_TYPES } from "../_CONSTANTS/PKMN_TYPES";
 import { RARITIES } from "../_CONSTANTS/RARITIES";
@@ -24,6 +24,7 @@ export const SearchBar = ({
   endOfResults,
   setEndOfResults,
 }) => {
+  // API Call
   const requestSearch = async () => {
     console.log("Page index is: ", pageIndex);
     try {
@@ -55,13 +56,12 @@ export const SearchBar = ({
   };
 
   const handleSearch = async () => {
-    console.log("handleSearch");
     setEndOfResults(false);
     await requestSearch();
     setPageIndex(1);
   };
 
-  //* ---LOGIC TO USE IF FILTER CANNOT BE DONE ON API---
+  //* ---DO NOT DELETE COMMENT, USABLE IF FILTER CANNOT BE DONE ON API---
   // const filterByType = (list, matcher) => {
   //   const filteredList = !!matcher
   //     ? list.filter(
@@ -107,11 +107,6 @@ export const SearchBar = ({
   //   // do api call here and set data
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [searchResults, filterTypeValue, filterRarityValue, filterSetValue]);
-
-  useEffect(() => {
-    console.log(filterTypeValue, filterRarityValue, filterSetValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterTypeValue, filterRarityValue, filterSetValue]);
 
   return (
     <div className="SearchBar">

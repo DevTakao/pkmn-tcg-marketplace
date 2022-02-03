@@ -7,11 +7,13 @@ import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
 import { ViewCartButton } from "./components/ViewCartButton";
 
+//  GLOBAL STORE
 export const CartContext = createContext({
   cartItems: [],
   setCartItems: () => {},
 });
-//* CAN BE USED TO ADD DYNAMIC CSS IN JS
+
+//* CAN BE USED TO ADD DYNAMIC CSS IN JS WHEN WINDOW IS RESIZED
 // export const WindowSizeContext = createContext({ width: 0, height: 0 });
 
 function App() {
