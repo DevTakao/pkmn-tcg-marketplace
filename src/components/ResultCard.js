@@ -11,7 +11,7 @@ export const ResultCard = ({ data }) => {
       item: item,
       quantity: 1,
     };
-    const removeFromCart = (id) => {
+    const removeFromCart = (item) => {
       const updatedCart = cartItems.filter((x) => x.item.id !== item.id);
       setCartItems(updatedCart);
     };

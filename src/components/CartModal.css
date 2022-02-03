@@ -143,6 +143,7 @@
 }
 
 .CartModal .order-info-container .order-quantity-controls span {
+  user-select: none;
   width: 1rem;
   cursor: pointer;
 }

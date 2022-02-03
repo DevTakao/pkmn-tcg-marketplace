@@ -8,6 +8,19 @@ export const CartModal = ({ setOpenCart }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const data = cartItems;
 
+  const handleQuantityEdit = (_item, action) => {
+    const updatedCart = cartItems
+      .filter((item) => item.item.id !== _item.item.id)
+      .concat([
+        {
+          item: _item.item,
+          quantity: action === "INC" ? _item.quantity + 1 : _item.quantity - 1,
+        },
+      ]);
+    console.log(updatedCart);
+    setCartItems(updatedCart);
+  };
+
   return (
     <div className="CartModal">
       <div className="cart-item-area">
@@ -57,10 +70,16 @@ export const CartModal = ({ setOpenCart }) => {
                     {cartItem.quantity}
                   </span>
                   <div className="order-quantity-controls">
-                    <span className="order-quantity-control order-quantity-inc">
+                    <span
+                      className="order-quantity-control order-quantity-inc"
+                      onClick={() => handleQuantityEdit(cartItem, "INC")}
+                    >
                       ^
                     </span>
-                    <span className="order-quantity-control order-quantity-dec">
+                    <span
+                      className="order-quantity-control order-quantity-dec"
+                      onClick={() => handleQuantityEdit(cartItem, "DEC")}
+                    >
                       v
                     </span>
                   </div>
