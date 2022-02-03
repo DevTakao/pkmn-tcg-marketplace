@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { CartModal } from "./components/CartModal";
+import { PaySuccessModal } from "./components/PaySuccessModal";
 import { SearchBar } from "./components/SearchBar";
 import { SearchResults } from "./components/SearchResults";
 import { TopHeader } from "./components/TopHeader";
@@ -24,6 +25,7 @@ function App() {
   const [pageIndex, setPageIndex] = useState(1);
   const [endOfResults, setEndOfResults] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [payDone, setPayDone] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -81,7 +83,10 @@ function App() {
             setEndOfResults={setEndOfResults}
           />
           {!openCart && <ViewCartButton setOpenCart={setOpenCart} />}
-          {!!openCart && <CartModal setOpenCart={setOpenCart} />}
+          {!!openCart && (
+            <CartModal setOpenCart={setOpenCart} setPayDone={setPayDone} />
+          )}
+          {!!payDone && <PaySuccessModal setPayDone={setPayDone} />}
         </div>
       </CartContext.Provider>
     </WindowSizeContext.Provider>

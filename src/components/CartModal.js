@@ -3,7 +3,7 @@ import "./CartModal.css";
 import uniqueId from "lodash.uniqueid";
 import { CartContext } from "../App";
 
-export const CartModal = ({ setOpenCart }) => {
+export const CartModal = ({ setOpenCart, setPayDone }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const [totalCards, setTotalCards] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -167,7 +167,15 @@ export const CartModal = ({ setOpenCart }) => {
           <span className="sum-number text-red">${totalPrice}</span>
         </div>
         <div className="pay-button-container">
-          <button className="pay-button">Pay Now</button>
+          <button
+            className="pay-button"
+            onClick={() => {
+              setPayDone(true);
+              setOpenCart(false);
+            }}
+          >
+            Pay Now
+          </button>
         </div>
       </div>
       <button className="close-cart-btn" onClick={() => setOpenCart(false)}>
