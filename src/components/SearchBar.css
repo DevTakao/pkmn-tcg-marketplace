@@ -12,7 +12,8 @@
 }
 
 .SearchBar .search-input,
-.SearchBar .filter-select {
+.SearchBar .filter-select,
+.SearchBar .search-button {
   font-size: 1.2rem;
   margin: 0;
   padding: 0 0.5rem;
@@ -29,6 +30,7 @@
   padding-left: 2rem;
   border-top-left-radius: 1.5rem;
   border-bottom-left-radius: 1.5rem;
+  flex: 1 1 0px;
 }
 
 .SearchBar .filter-select:last-child {
@@ -38,12 +40,37 @@
 
 .SearchBar .search-input::placeholder,
 .SearchBar .filter-select,
-.SearchBar .option-placeholder {
+.SearchBar .option-placeholder,
+.SearchBar .search-button {
   color: #adadad;
 }
 
 .SearchBar .option-item {
   color: #000;
+}
+
+.SearchBar .search-button-container {
+  margin-top: 1rem;
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SearchBar .search-button {
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 2.5rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 10rem;
+  width: 200px;
+  height: 2.5rem;
+}
+.SearchBar .search-button .search-icon {
+  font-size: inherit;
 }
 
 @media screen and (max-width: 767.9px) {
@@ -58,6 +85,11 @@
   .SearchBar .search-input,
   .SearchBar .filter-select {
     border-radius: 1.5rem;
+  }
+
+  .SearchBar .search-input {
+    padding-left: 1rem;
+    max-width: 100%;
   }
 
   .SearchBar .filter-selects-container {

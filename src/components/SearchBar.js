@@ -4,6 +4,8 @@ import { PKMN_TYPES } from "../_CONSTANTS/PKMN_TYPES";
 import { RARITIES } from "../_CONSTANTS/RARITIES";
 import { SET_LEGALITIES } from "../_CONSTANTS/SET_LEGALITIES";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export const SearchBar = ({
   searchInput,
@@ -122,7 +124,7 @@ export const SearchBar = ({
       >
         <input
           className="search-input"
-          size={25}
+          size={18}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Name..."
@@ -191,6 +193,11 @@ export const SearchBar = ({
               </option>
             ))}
           </select>
+        </div>
+        <div className="search-button-container">
+          <button className="search-button" type="submit">
+            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          </button>
         </div>
       </form>
     </div>
