@@ -3,7 +3,11 @@ import "./CartModal.css";
 import uniqueId from "lodash.uniqueid";
 import { CartContext } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faAngleDown,
+  faAngleUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const CartModal = ({ setOpenCart, setPayDone }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
@@ -128,13 +132,16 @@ export const CartModal = ({ setOpenCart, setPayDone }) => {
                       className="order-quantity-control order-quantity-inc"
                       onClick={() => handleQuantityEdit(cartItem, "INC")}
                     >
-                      ^
+                      <FontAwesomeIcon icon={faAngleUp} className="up-icon" />
                     </span>
                     <span
                       className="order-quantity-control order-quantity-dec"
                       onClick={() => handleQuantityEdit(cartItem, "DEC")}
                     >
-                      v
+                      <FontAwesomeIcon
+                        icon={faAngleDown}
+                        className="down-icon"
+                      />
                     </span>
                   </div>
                 </div>

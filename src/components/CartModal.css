@@ -144,7 +144,7 @@
   cursor: pointer;
 }
 .CartModal .order-info-container .order-quantity-controls span:hover {
-  font-weight: bold;
+  color: rgb(4, 0, 255);
 }
 
 .CartModal .order-item-total-container {
