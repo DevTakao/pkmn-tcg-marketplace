@@ -117,7 +117,6 @@ export const SearchBar = ({
           e.preventDefault();
           handleSearch();
         }}
-        // action="javascript:void"
       >
         <input
           className="search-input"
@@ -126,65 +125,71 @@ export const SearchBar = ({
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Name..."
         />
-        <select
-          className="filter-select filter-type-select"
-          value={filterTypeValue}
-          onChange={(e) => setFilterTypeValue(e.target.value)}
-        >
-          <option className="option-placeholder" value="" disabled>
-            Type
-          </option>
-          <option className="option-item" value="">
-            -any-
-          </option>
-          {PKMN_TYPES.map((type) => (
-            <option
-              key={type}
-              className="option-item"
-              value={type.toLowerCase()}
-            >
-              {type}
+        <div className="filter-selects-container">
+          <select
+            className="filter-select filter-type-select"
+            value={filterTypeValue}
+            onChange={(e) => setFilterTypeValue(e.target.value)}
+          >
+            <option className="option-placeholder" value="" disabled>
+              Type
             </option>
-          ))}
-        </select>
-        <select
-          className="filter-select filter-rarity-select"
-          value={filterRarityValue}
-          onChange={(e) => setFilterRarityValue(e.target.value)}
-        >
-          <option className="option-placeholder" value="" disabled>
-            Rarity
-          </option>
-          <option className="option-item" value="">
-            -any-
-          </option>
-          {RARITIES.map((rarity) => (
-            <option
-              key={rarity}
-              className="option-item"
-              value={rarity.toLowerCase()}
-            >
-              {rarity}
+            <option className="option-item" value="">
+              -any-
             </option>
-          ))}
-        </select>
-        <select
-          className="filter-select filter-set-select"
-          value={filterSetValue}
-          onChange={(e) => setFilterSetValue(e.target.value)}
-        >
-          <option className="option-placeholder" value="" disabled>
-            Set
-          </option>
-          <option className="option-item" value="">
-            -any-
-          </option>
-          {SET_LEGALITIES.map((set) => (
-            <option key={set} className="option-item" value={set.toLowerCase()}>
-              {set}
+            {PKMN_TYPES.map((type) => (
+              <option
+                key={type}
+                className="option-item"
+                value={type.toLowerCase()}
+              >
+                {type}
+              </option>
+            ))}
+          </select>
+          <select
+            className="filter-select filter-rarity-select"
+            value={filterRarityValue}
+            onChange={(e) => setFilterRarityValue(e.target.value)}
+          >
+            <option className="option-placeholder" value="" disabled>
+              Rarity
             </option>
-          ))}
-        </select>
+            <option className="option-item" value="">
+              -any-
+            </option>
+            {RARITIES.map((rarity) => (
+              <option
+                key={rarity}
+                className="option-item"
+                value={rarity.toLowerCase()}
+              >
+                {rarity}
+              </option>
+            ))}
+          </select>
+          <select
+            className="filter-select filter-set-select"
+            value={filterSetValue}
+            onChange={(e) => setFilterSetValue(e.target.value)}
+          >
+            <option className="option-placeholder" value="" disabled>
+              Set
+            </option>
+            <option className="option-item" value="">
+              -any-
+            </option>
+            {SET_LEGALITIES.map((set) => (
+              <option
+                key={set}
+                className="option-item"
+                value={set.toLowerCase()}
+              >
+                {set}
+              </option>
+            ))}
+          </select>
+        </div>
       </form>
     </div>
   );

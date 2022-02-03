@@ -43,3 +43,29 @@
 .SearchBar .option-item {
   color: #000;
 }
+
+@media screen and (max-width: 767.9px) {
+  .SearchBar {
+    padding: 0 1rem;
+  }
+  .SearchBar .search-input,
+  .SearchBar .filter-selects-container {
+    flex: 1 1 100%;
+  }
+
+  .SearchBar .search-input,
+  .SearchBar .filter-select {
+    border-radius: 1.5rem;
+  }
+
+  .SearchBar .filter-selects-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+  .SearchBar .filter-select {
+    flex: 1 1;
+  }
+}
