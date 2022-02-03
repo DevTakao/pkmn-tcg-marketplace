@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CartModal.css";
 import { _apiData } from "../_mocks/search_results.js";
 import uniqueId from "lodash.uniqueid";
@@ -7,6 +7,50 @@ import { CartContext } from "../App";
 export const CartModal = ({ setOpenCart }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const data = cartItems;
+
+  const [totalCards, setTotalCards] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      if (cartItems.length === 1) {
+        setTotalCards(parseInt(cartItems[0].quantity));
+      } else {
+        const cardTotal = cartItems.reduce(
+          (a, b) => a + parseInt(b.quantity),
+          0
+        );
+        console.log("Card total", cardTotal);
+        setTotalCards(cardTotal);
+      }
+    } else {
+      setTotalCards(0);
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      if (cartItems.length === 1) {
+        setTotalPrice(
+          (
+            parseInt(cartItems[0].quantity) *
+            parseInt(cartItems[0].item.cardmarket.prices.averageSellPrice)
+          ).toFixed(2)
+        );
+      } else {
+        const priceTotal = cartItems.reduce(
+          (a, b) =>
+            a +
+            parseInt(b.quantity) * b.item.cardmarket.prices.averageSellPrice,
+          0
+        );
+        console.log("Price total", priceTotal);
+        setTotalPrice(priceTotal.toFixed(2));
+      }
+    } else {
+      setTotalPrice(0);
+    }
+  }, [cartItems]);
 
   const handleQuantityEdit = (_item, action) => {
     let newQuantity = 0;
@@ -101,7 +145,10 @@ export const CartModal = ({ setOpenCart }) => {
                 </div>
                 <div className="order-item-total-container">
                   <p className="label">price</p>
-                  <p className="order-item-total text-blue text-thicker">{`$${"49"}`}</p>
+                  <p className="order-item-total text-blue text-thicker">{`$${(
+                    cartItem.quantity *
+                    cartItem.item.cardmarket.prices.averageSellPrice
+                  ).toFixed(2)}`}</p>
                 </div>
               </div>
             </div>
@@ -120,11 +167,11 @@ export const CartModal = ({ setOpenCart }) => {
       <div className="net-total-area text-thicker">
         <div className="total-cards-container">
           <span className="label">Total cards</span>
-          <span className="sum-number text-red">7</span>
+          <span className="sum-number text-red">{totalCards}</span>
         </div>
         <div className="total-price-container text-thicker">
           <span className="label">Total price</span>
-          <span className="sum-number text-red">$196</span>
+          <span className="sum-number text-red">${totalPrice}</span>
         </div>
         <div className="pay-button-container">
           <button className="pay-button">Pay Now</button>
