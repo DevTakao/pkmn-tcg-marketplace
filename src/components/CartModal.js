@@ -6,8 +6,6 @@ import { CartContext } from "../App";
 
 export const CartModal = ({ setOpenCart }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
-  const data = cartItems;
-
   const [totalCards, setTotalCards] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -20,7 +18,6 @@ export const CartModal = ({ setOpenCart }) => {
           (a, b) => a + parseInt(b.quantity),
           0
         );
-        console.log("Card total", cardTotal);
         setTotalCards(cardTotal);
       }
     } else {
@@ -33,18 +30,18 @@ export const CartModal = ({ setOpenCart }) => {
       if (cartItems.length === 1) {
         setTotalPrice(
           (
-            parseInt(cartItems[0].quantity) *
-            parseInt(cartItems[0].item.cardmarket.prices.averageSellPrice)
+            parseFloat(cartItems[0].quantity) *
+            parseFloat(cartItems[0].item.cardmarket.prices.averageSellPrice)
           ).toFixed(2)
         );
       } else {
         const priceTotal = cartItems.reduce(
           (a, b) =>
             a +
-            parseInt(b.quantity) * b.item.cardmarket.prices.averageSellPrice,
+            parseFloat(b.quantity) *
+              parseFloat(b.item.cardmarket.prices.averageSellPrice),
           0
         );
-        console.log("Price total", priceTotal);
         setTotalPrice(priceTotal.toFixed(2));
       }
     } else {
@@ -61,34 +58,31 @@ export const CartModal = ({ setOpenCart }) => {
         newQuantity = _item.quantity;
       }
     } else {
+      // action === "DEC"
       if (_item.quantity > 0) {
         newQuantity = _item.quantity - 1;
       }
     }
-
-    const updatedCart = !!newQuantity
-      ? cartItems
-          .filter((item) => item.item.id !== _item.item.id)
-          .concat([
-            {
-              item: _item.item,
-              quantity: newQuantity,
-            },
-          ])
-      : cartItems.filter((x) => x.item.id !== _item.item.id);
-    console.log(updatedCart);
-    setCartItems(updatedCart);
+    if (!!newQuantity) {
+      let arr = [...cartItems];
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].item.id === _item.item.id) {
+          arr[i].quantity = newQuantity;
+        }
+        setCartItems(arr);
+      }
+    } else {
+      // newQuantity is falsy
+      setCartItems(cartItems.filter((x) => x.item.id !== _item.item.id));
+    }
   };
 
   return (
     <div className="CartModal">
       <div className="cart-item-area">
         <div className="cart-item-list">
-          {data.map((cartItem) => (
-            <div
-              key={uniqueId() + "_" + cartItem.item.id}
-              className="cart-item"
-            >
+          {cartItems.map((cartItem) => (
+            <div key={uniqueId(cartItem.item.id + "_")} className="cart-item">
               <div className="item-img-container">
                 <img
                   className="item-img"
